@@ -1,0 +1,30 @@
+//Alumno: Urcid García Amín
+
+#include <stdio.h>
+#include <mpi.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+	float *dato;
+	int id, np,i;
+
+	MPI_Init(&argc, &argv);
+	MPI_Comm_rank(MPI_COMM_WORLD, &id);
+	MPI_Comm_size(MPI_COMM_WORLD, &np);
+	
+	if(id == 0)
+	{
+		for (i=0; i<5;i++)
+		{
+			dato[i] = i+1;
+		}
+	}
+
+	MPI_Bcast(&dato, 5, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+	printf("\n%f \n%f \n%f \n%f \n%f", dato[0], dato[1], dato[2], dato[3], dato[4]);
+	MPI_Finalize();
+
+	return 0;
+}
